@@ -1,0 +1,25 @@
+version: 2
+sources:
+    - name: beejan_ride_beejan_ride
+      description: Raw data from source standardized
+      database: beejan-ride
+      schema: beejan_ride_beejan_ride
+
+      config:
+        freshness: 
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+      tables:
+
+          - name: cities_raw
+            description: Captures the attributes of cities information available on the app or that riders ply
+          - name: drivers_raw
+            description: Captures the attributes of drivers information that are registered on Beejan Ride App
+          - name: payments_raw
+            description: Captures the attributes of payments informations
+          - name: riders_raw
+            description: Captures the attributes of riders information that have registered or have used the Beejan Ride App
+          - name: trips_raw
+            description: Captures the attributes of trips informations
+          - name: driver_status_events_raw
+            description: Captures the attributes of drivers status and activity

@@ -1,0 +1,7 @@
+env/
+logs/
+*.json
+target/
+dbt_project.yml
+.vscode/
+beejan-env

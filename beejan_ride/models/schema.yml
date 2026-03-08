@@ -1,0 +1,122 @@
+version: 2
+models:
+    - name: stg_cities
+      description: Captures the standardized attributes of cities information available on the app or that riders ply
+      columns: 
+          - name: city_id
+            description: Primary Key
+            data_tests:
+                - unique
+                - not_null
+
+    - name: stg_riders
+      description: Captures the standardized attributes of trips informations
+      columns: 
+          - name: rider_id
+            description: Primary Key
+            data_tests:
+                - unique
+                - not_null
+                
+    - name: stg_driver_status_events
+      description:  Captures the standardized attributes of drivers status and activity
+      columns: 
+          - name: event_id
+            description: Primary Key
+            data_tests:
+                - unique
+                - not_null
+          - name: driver_id
+            description: Foreign Key
+            data_tests:
+                - not_null
+                - relationships:
+                    arguments:
+                        to: ref('stg_drivers')
+                        field: driver_id
+
+    - name: stg_trips
+      description: Captures the attributes of trips informations
+      tests:
+        - dbt_utils.unique_combination_of_columns:
+            arguments:
+              combination_of_columns:
+                - city_id
+                - trip_id
+                - rider_id
+                - driver_id
+      columns: 
+          - name: city_id
+            description: composite key 
+            data_tests:
+                - not_null 
+          - name: trip_id
+            description: composite key 
+            data_tests:
+                - not_null
+          - name: rider_id
+            description: composite key 
+            data_tests:
+                - not_null
+                - relationships:
+                    arguments:
+                        to: ref('stg_riders')
+                        field: rider_id
+          - name: driver_id
+            description: composite key
+            data_tests:
+                - not_null
+                - relationships:
+                    arguments:
+                        to: ref('stg_drivers')
+                        field: driver_id
+
+    - name: stg_payments
+      description: Captures the Standardized attributes of payments informations
+      tests:
+        - dbt_utils.unique_combination_of_columns:
+            arguments:
+              combination_of_columns:
+                - payment_id
+                - trip_id
+      columns: 
+          - name: payment_id
+            description: composite key 
+            data_tests:
+                - not_null
+          - name: trip_id
+            description: composite key 
+            data_tests:
+                - not_null
+                - relationships:
+                    arguments:
+                        to: ref('stg_trips')
+                        field: trip_id
+    
+    - name: stg_drivers 
+      description: Captures the Standardized attributes of drivers information that are registered on Beejan Ride App
+      tests:
+        - dbt_utils.unique_combination_of_columns:
+            arguments:
+              combination_of_columns:
+                - driver_id
+                - vehicle_id
+                - city_id
+      columns: 
+          - name: city_id
+            description: composite key 
+            data_tests:
+                - not_null 
+                - relationships:
+                    arguments:
+                        to: ref('stg_cities')
+                        field: city_id
+          - name: vehicle_id
+            description: composite key 
+            data_tests:
+                - not_null
+          - name: driver_id
+            description: composite key 
+            data_tests:
+                - not_null
+

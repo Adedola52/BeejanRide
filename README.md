@@ -70,8 +70,20 @@ These tests ensure that downstream analytics and reporting rely on **trusted, va
 
 ---
 
-## Tradeoffs
+## Snapshot
 
+Snapshots were implemented using **Slowly Changing Dimension Type 2** to track historical changes in the drivers table. This allows changes in driver_status, driver_rating, and vehicle_id to be captured over time, preserving previous values and enabling analysis of how these attributes evolve. 
+
+---
+
+## Tradoffs
+
+Several tradeoffs were made to ensure data is efficiently ingested, stored, and transformed:
+
+- **Source sync:** The source database was synced using Incremental/Append mode to avoid reloading the entire dataset on every sync, reducing time and compute costs by only processing new data
+- **The staging and intermediate layers:** These layers were materialized as views to ensure they are freshly updated on every run and also not persisted in the warehouse, since they serve only as intermediate transformation steps rather than final analytical datasets
+- **Mart layer:** This layer was materialized as incremental tables. This allows persisting data in the warehouse while updating only newly added records during subsequent runs.
+Since mart models are the primary datasets used by downstream analytics and reporting tools, persisting them improves query performance and reduces compute costs compared to querying the  the entire ustream layers on every run
 
 ---
 
@@ -85,6 +97,12 @@ dbt documentation was generated to provide:
 * Source-to-mart traceability
 
 This enables stakeholders and engineers to easily understand how data flows through the platform.
+
+---
+
+## Architecture diagram
+
+
 
 ---
 

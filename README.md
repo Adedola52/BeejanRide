@@ -5,7 +5,6 @@
 BeejanRide is a fast-growing UK mobility startup operating in five cities and providing services such as ride-hailing, airport transfers, and scheduled corporate rides.
 
 As a newly hired Data Engineer at BeejanRide, my responsibility was to design and implement a **production-ready analytics transformation layer using dbt** after the company migrated to a modern data stack.
-
 The goal of this project was to build a **scalable, well-tested, and well-documented analytics platform** that supports reliable reporting and data-driven decision-making.
 
 This project demonstrates how raw operational data is **extracted and ingested into a data warehouse using Airbyte**, and then transformed into **clean, trusted analytics models using dbt best practices**, including modular transformations, testing, and documentation.

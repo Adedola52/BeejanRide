@@ -97,6 +97,8 @@ dbt documentation was generated to provide:
 
 This enables stakeholders and engineers to easily understand how data flows through the platform.
 
+![Architecture](https://github.com/Adedola52/BeejanRide/blob/b2ea82e785344406f1f89dbb92dde436fa742e47/images/Linage.png)
+
 ---
 
 ## Architecture diagram

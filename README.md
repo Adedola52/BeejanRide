@@ -101,7 +101,7 @@ This enables stakeholders and engineers to easily understand how data flows thro
 
 ## Architecture diagram
 
-
+![Architecture](https://github.com/Adedola52/BeejanRide/blob/fad8b481d12c8d349b4886094510f1f3adf2cb80/images/Architecture%20Daigram.png)
 
 ---
 
